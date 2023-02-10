@@ -42,4 +42,19 @@ export class ListaComponent {
       asistencia: false,
     },
   ];
+
+  seleccionado = null;
+  editar(alumn: any) {
+    this.seleccionado = alumn;
+  }
+
+  eliminar(alumn: any) {
+    var Aux = this.lista;
+    Aux.forEach(function (currentValue, index, arr) {
+      if (Aux[index] == alumn) {
+        Aux.splice(index, 1);
+      }
+    });
+    this.lista = Aux;
+  }
 }

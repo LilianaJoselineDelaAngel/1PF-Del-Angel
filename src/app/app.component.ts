@@ -3,8 +3,13 @@ import { Component } from '@angular/core';
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
-  styleUrls: ['./app.component.css']
+  styleUrls: ['./app.component.css'],
 })
 export class AppComponent {
   title = '1PF-Del-Angel';
+
+  nvo = null;
+  nuevo(alumn: any) {
+    this.nvo = alumn;
+  }
 }

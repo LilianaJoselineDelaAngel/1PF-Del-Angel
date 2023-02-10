@@ -20,8 +20,8 @@
           </label><br>
           <br>
           <div class="botones">
-            <a href="#" class="btn btn-info">Editar</a>&nbsp;&nbsp;
-            <a href="#" class="btn btn-warning">Eliminar</a>
+            <a href="#" class="btn btn-info" (click)="editar(alumnos)">Editar</a>&nbsp;&nbsp;
+            <a href="#" class="btn btn-warning" (click)="eliminar(alumnos)">Eliminar</a>
           </div>
 
         </div>
@@ -30,3 +30,5 @@
   </div>
 
 </div>
+
+<app-formulario *ngIf="seleccionado" [lista]="seleccionado" (closeModal)="editar(null)"></app-formulario>
