@@ -1,1 +1,32 @@
-<p>lista works!</p>
+<div class="contenido">
+  <h1 class="titulo">Lista de alumnos </h1>
+
+  <div class="row">
+    <div class="col-4" *ngFor="let alumnos of lista">
+      <div class="card">
+        <div class="card-header">
+          <span [ngClass]="alumnos.asistencia === true ? 'asistencia': 'Noasistencia'">{{alumnos.nombre | uppercase}}
+            {{alumnos.apellidos | uppercase}}</span><br />
+        </div>
+        <div class="card-body">
+          <h5 class="card-title">{{alumnos.curso}}</h5>
+          <label>Tareas: {{alumnos.tareas | number}} / {{alumnos.esperadas | number}}
+            <span *ngIf="alumnos.tareas <= 6 " class="deficiente"> las entregadas no cumplen con lo
+              esperado</span>
+            <span *ngIf="alumnos.tareas > 6 && alumnos.tareas <= 8 " class="promedio"> las entregas son
+              aceptables</span>
+            <span *ngIf="alumnos.tareas > 8 && alumnos.tareas <= 10 " class="aceptable"> las entregas son
+              excelentes</span>
+          </label><br>
+          <br>
+          <div class="botones">
+            <a href="#" class="btn btn-info">Editar</a>&nbsp;&nbsp;
+            <a href="#" class="btn btn-warning">Eliminar</a>
+          </div>
+
+        </div>
+      </div><br>
+    </div>
+  </div>
+
+</div>

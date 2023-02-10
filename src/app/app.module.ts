@@ -1,20 +1,19 @@
 import { NgModule } from '@angular/core';
+import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
 
 import { AppComponent } from './app.component';
-import { NuevoComponent } from './Alumnos/nuevo/nuevo.component';
 import { ListaComponent } from './Alumnos/lista/lista.component';
+import { FormularioComponent } from './Alumnos/formulario/formulario.component';
 
 @NgModule({
-  declarations: [
-    AppComponent,
-    NuevoComponent,
-    ListaComponent
-  ],
+  declarations: [AppComponent, ListaComponent, FormularioComponent],
   imports: [
-    BrowserModule
+    BrowserModule,
+    ReactiveFormsModule, //formularios reactivos
+    FormsModule, //formularios de plantillas
   ],
   providers: [],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}

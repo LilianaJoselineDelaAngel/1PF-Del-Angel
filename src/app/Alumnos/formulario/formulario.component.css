@@ -1,0 +1,14 @@
+.titulo {
+  text-align: center;
+}
+
+.boton {
+  text-align: center;
+}
+
+.invalid {
+  color: rgb(248, 120, 120);
+}
+.modal {
+  display: block;
+}
