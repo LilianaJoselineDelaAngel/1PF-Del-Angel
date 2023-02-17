@@ -89,6 +89,12 @@ export class FormularioComponent {
     });
     this.dataSource.data = Aux;
     //  this.tabla.renderRows();
+    this.formulario.reset({
+      nombre: '',
+      apellidos: '',
+      curso: '',
+      tareas: '',
+    });
   }
 
   nuevo() {

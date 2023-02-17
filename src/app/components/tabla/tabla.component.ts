@@ -51,11 +51,9 @@ export class TablaComponent {
 
   editar(alumn: Alumnos) {
     console.log(alumn);
-
     const dialogRef = this.dialog.open(FormularioComponent, {
       data: alumn,
     });
-
     this.tabla.renderRows();
   }
 
@@ -71,10 +69,31 @@ export class TablaComponent {
     this.tabla.renderRows();
   }
 
+  vacio = {
+    nombre: '',
+    apellidos: '',
+    curso: '',
+    tareas: 0,
+    esperadas: 10,
+    asistencia: true,
+  };
+
   nuevo(alumn: any) {
+    this.dataSource.data.push(alumn);
+    console.log(alumn);
     const dialogRef = this.dialog.open(FormularioComponent, {
       data: alumn,
     });
     this.tabla.renderRows();
+
+    //limpia los campor para el registro siguiente
+    this.vacio = {
+      nombre: '',
+      apellidos: '',
+      curso: '',
+      tareas: 0,
+      esperadas: 10,
+      asistencia: true,
+    };
   }
 }

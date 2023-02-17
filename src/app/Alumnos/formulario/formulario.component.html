@@ -16,7 +16,7 @@
                     <!-- <p>{{data |json}}</p>-->
                     <label for="Nombre" class="form-label">Nombre(s)</label>
                     <input formControlName="nombre" type="text" class="form-control" placeholder="Nombre" id="Nombre"
-                      aria-describedby="Nombre">
+                      aria-describedby="Nombre" autocomplete="off">
                     <div class="invalid" *ngIf="formulario.controls['nombre'].errors?.['required'] ">
                       ingrese un nombre
                     </div>
@@ -29,7 +29,7 @@
                   <div class="mb-3">
                     <label for="Apellidos" class="form-label">Apellidos</label>
                     <input formControlName="apellidos" type="text" class="form-control" placeholder="Apellidos"
-                      id="Apellidos" aria-describedby="Apellidos">
+                      id="Apellidos" aria-describedby="Apellidos" autocomplete="off">
                     <div class="invalid" *ngIf="formulario.controls['apellidos'].errors?.['required'] ">
                       Ingrese su apellido</div>
                   </div>
@@ -38,14 +38,14 @@
                   <div class="mb-3">
                     <label for="curso" class="form-label">Curso</label>
                     <input formControlName="curso" type="text" class="form-control" placeholder="Curso" id="Curso"
-                      aria-describedby="Curso">
+                      aria-describedby="Curso" autocomplete="off">
                   </div>
                 </div>
                 <div class=" col-12">
                   <div class="mb-3">
                     <label for="Tareas" class="form-label">Tareas</label>
                     <input formControlName="tareas" type="text" class="form-control" placeholder="tareas" id="tareas"
-                      aria-describedby="tareas">
+                      aria-describedby="tareas" autocomplete="off">
                   </div>
                 </div>
                 <div class=" col-12">
@@ -65,9 +65,9 @@
             <button mat-dialog-close="" type="button" class="btn btn-success" (click)="enviar(data)">
               <mat-icon>save</mat-icon>&nbsp;Guardar
             </button>&nbsp;&nbsp;
-            <button mat-dialog-close="" type="button" class="btn btn-success" (click)="nuevo()" (click)="enviar(data)">
+            <!--<button mat-dialog-close="" type="button" class="btn btn-success" (click)="nuevo()" (click)="enviar(data)">
               <mat-icon>add</mat-icon>&nbsp;Nuevo
-            </button>
+            </button>-->
           </div>
 
         </div>
