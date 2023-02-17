@@ -27,7 +27,7 @@ export class FormularioComponent {
   constructor(
     public dialogRef: MatDialogRef<FormularioComponent>,
     private AlumnoListaService: AlumnoListaService,
-    @Inject(MAT_DIALOG_DATA) public data: any
+    @Inject(MAT_DIALOG_DATA) public data: Alumnos
   ) {
     let controles: any = {
       nombre: new FormControl(data.nombre, [

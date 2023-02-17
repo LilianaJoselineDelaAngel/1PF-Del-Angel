@@ -46,34 +46,25 @@ export class TablaComponent {
   //}
 
   editar(alumn: Alumnos): void {
-    this.dialog.open(FormularioComponent, {
-      data: alumn,
+    this.dataSource.data.push({
+      nombre: 'Julieta',
+      apellidos: 'Ponce de León',
+      curso: 'Angular JS',
+      tareas: 5,
+      esperadas: 10,
+      asistencia: true,
     });
+
+    //  this.dialog.open(FormularioComponent, {
+    //  data: alumn,
+    // });
 
     console.log(alumn);
     const dialogRef = this.dialog.open(FormularioComponent, {
       data: alumn,
     });
 
-    dialogRef.afterClosed().subscribe((result) => {
-      console.log('The dialog was closed');
-      //this.dataSource.data.nombre = this.formulario.controls['nombre'].value;
-      //this.dataSource.data.apellidos =
-      // this.formulario.controls['apellidos'].value;
-      // this.dataSource.data.curso = this.formulario.controls['curso'].value;
-      //this.dataSource.data.tareas = this.formulario.controls['tareas'].value;
-
-      var Aux = this.dataSource.data;
-      console.log(this.dataSource.data);
-      Aux.forEach(function (currentValue, index, arr) {
-        if (Aux[index] == alumn) {
-          console.log(Aux[index]);
-          // Aux[index].nombre = FormularioComponent.name.controls['nombre'].value;
-        }
-      });
-      this.dataSource.data = Aux;
-      this.tabla.renderRows();
-    });
+    this.tabla.renderRows();
   }
 
   eliminar(alumn: any) {
