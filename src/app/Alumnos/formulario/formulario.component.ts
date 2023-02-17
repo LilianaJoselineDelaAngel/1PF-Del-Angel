@@ -35,11 +35,27 @@ export class FormularioComponent {
 
   enviar() {
     if (this.lista == 'nuevo') {
+      const newitem = {
+        nombre: this.formulario.controls['nombre'].value,
+        apellidos: this.formulario.controls['apellidos'].value,
+        curso: this.formulario.controls['curso'].value,
+        tareas: this.formulario.controls['tareas'].value,
+        esperadas: 10,
+        asistencia: true,
+      };
+      const list = [this.lista];
+      list.push(newitem);
+      this.lista({
+        list,
+        newitem: '',
+      });
+
       let nuevaData = this.lista.push({
         nombre: this.formulario.controls['nombre'].value,
         apellidos: this.formulario.controls['apellidos'].value,
         curso: this.formulario.controls['curso'].value,
         tareas: this.formulario.controls['tareas'].value,
+        esperadas: 10,
         asistencia: true,
       });
       this.lista = nuevaData;

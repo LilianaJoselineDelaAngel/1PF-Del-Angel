@@ -7,14 +7,16 @@ import { ListaComponent } from './Alumnos/lista/lista.component';
 import { FormularioComponent } from './Alumnos/formulario/formulario.component';
 
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { TablaComponent } from './components/tabla/tabla.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 @NgModule({
-  declarations: [AppComponent, ListaComponent, FormularioComponent],
+  declarations: [AppComponent, ListaComponent, FormularioComponent, TablaComponent],
   imports: [
     BrowserModule,
     ReactiveFormsModule, //formularios reactivos
     FormsModule, //formularios de plantillas
-    NgbModule,
+    NgbModule, BrowserAnimationsModule,
   ],
   providers: [],
   bootstrap: [AppComponent],
