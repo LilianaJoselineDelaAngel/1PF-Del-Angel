@@ -1,6 +1,21 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import {
+  Component,
+  EventEmitter,
+  Input,
+  Output,
+  ViewChild,
+  Inject,
+} from '@angular/core';
+import { Alumnos } from '../../models/alumnos';
+import { MatTable, MatTableDataSource } from '@angular/material/table';
+import { AlumnoListaService } from '../../services/alumno-lista.service';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { ListaComponent } from '../lista/lista.component';
+import {
+  MatDialog,
+  MatDialogRef,
+  MAT_DIALOG_DATA,
+} from '@angular/material/dialog';
+//import { ListaComponent } from '../lista/lista.component';
 
 @Component({
   selector: 'app-formulario',
@@ -8,64 +23,65 @@ import { ListaComponent } from '../lista/lista.component';
   styleUrls: ['./formulario.component.css'],
 })
 export class FormularioComponent {
+  dataSource!: MatTableDataSource<Alumnos>;
+  constructor(
+    public dialogRef: MatDialogRef<FormularioComponent>,
+    private AlumnoListaService: AlumnoListaService,
+    @Inject(MAT_DIALOG_DATA) public data: any
+  ) {
+    let controles: any = {
+      nombre: new FormControl(data.nombre, [
+        Validators.required,
+        Validators.pattern('^[a-zA-Z]+$'),
+      ]),
+      apellidos: new FormControl(data.apellidos, [
+        Validators.required,
+        Validators.pattern('^[a-zA-Z]+$'),
+      ]),
+      curso: new FormControl(data.curso, []),
+      tareas: new FormControl(data.tareas, []),
+    };
+    this.formulario = new FormGroup(controles);
+  }
+
+  ngOnInit(): void {
+    this.dataSource = new MatTableDataSource<Alumnos>();
+    this.AlumnoListaService.obtenerAlumnosObservable().subscribe(
+      (Alumnos: Alumnos[]) => {
+        this.dataSource.data = Alumnos;
+      }
+    );
+  }
+
   formulario: FormGroup;
   Mensaje: string = '';
 
-  @Input() lista: any;
+  //@Input() lista: any;
   @Output() closeModal = new EventEmitter();
 
   onCloseModal(): void {
     this.closeModal.emit();
   }
-  constructor() {
-    let controles: any = {
-      nombre: new FormControl('', [
-        Validators.required,
-        Validators.pattern('^[a-zA-Z]+$'),
-      ]),
-      apellidos: new FormControl('', [
-        Validators.required,
-        Validators.pattern('^[a-zA-Z]+$'),
-      ]),
-      curso: new FormControl('', []),
-      tareas: new FormControl('', []),
-    };
-    this.formulario = new FormGroup(controles);
-  }
 
   enviar() {
-    if (this.lista == 'nuevo') {
-      const newitem = {
-        nombre: this.formulario.controls['nombre'].value,
-        apellidos: this.formulario.controls['apellidos'].value,
-        curso: this.formulario.controls['curso'].value,
-        tareas: this.formulario.controls['tareas'].value,
-        esperadas: 10,
-        asistencia: true,
-      };
-      const list = [this.lista];
-      list.push(newitem);
-      this.lista({
-        list,
-        newitem: '',
-      });
+    console.log(this.dataSource.data);
+    console.log(this.formulario);
+    //this.dataSource.data.nombre = this.formulario.controls['nombre'].value;
+    //this.dataSource.data.apellidos =
+    // this.formulario.controls['apellidos'].value;
+    // this.dataSource.data.curso = this.formulario.controls['curso'].value;
+    //this.dataSource.data.tareas = this.formulario.controls['tareas'].value;
+  }
 
-      let nuevaData = this.lista.push({
-        nombre: this.formulario.controls['nombre'].value,
-        apellidos: this.formulario.controls['apellidos'].value,
-        curso: this.formulario.controls['curso'].value,
-        tareas: this.formulario.controls['tareas'].value,
-        esperadas: 10,
-        asistencia: true,
-      });
-      this.lista = nuevaData;
-    } else {
-      console.log(this.lista);
-      console.log(this.formulario);
-      this.lista.nombre = this.formulario.controls['nombre'].value;
-      this.lista.apellidos = this.formulario.controls['apellidos'].value;
-      this.lista.curso = this.formulario.controls['curso'].value;
-      this.lista.tareas = this.formulario.controls['tareas'].value;
-    }
+  nuevo() {
+    this.dataSource.data.push({
+      nombre: this.formulario.controls['nombre'].value,
+      apellidos: this.formulario.controls['apellidos'].value,
+      curso: this.formulario.controls['curso'].value,
+      tareas: this.formulario.controls['tareas'].value,
+      esperadas: 10,
+      asistencia: true,
+    });
+    console.log(this.dataSource.data);
   }
 }

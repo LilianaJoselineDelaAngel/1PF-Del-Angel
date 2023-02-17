@@ -9,16 +9,36 @@ import { FormularioComponent } from './Alumnos/formulario/formulario.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { TablaComponent } from './components/tabla/tabla.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-
+import { MatTableModule } from '@angular/material/table';
+import { MatIconModule } from '@angular/material/icon';
+import { AlumnoListaService } from './services/alumno-lista.service';
+import {
+  MatDialogModule,
+  MAT_DIALOG_DEFAULT_OPTIONS,
+} from '@angular/material/dialog';
 @NgModule({
-  declarations: [AppComponent, ListaComponent, FormularioComponent, TablaComponent],
+  declarations: [
+    AppComponent,
+    ListaComponent,
+    FormularioComponent,
+    TablaComponent,
+  ],
   imports: [
+    MatIconModule,
+    MatTableModule,
     BrowserModule,
     ReactiveFormsModule, //formularios reactivos
     FormsModule, //formularios de plantillas
-    NgbModule, BrowserAnimationsModule,
+    NgbModule,
+    BrowserAnimationsModule,
+    MatDialogModule,
   ],
-  providers: [],
+
+  exports: [MatTableModule, MatIconModule, MatDialogModule],
+  providers: [
+    AlumnoListaService,
+    { provide: MAT_DIALOG_DEFAULT_OPTIONS, useValue: { hasBackdrop: false } },
+  ],
   bootstrap: [AppComponent],
 })
 export class AppModule {}
