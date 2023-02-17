@@ -2,7 +2,7 @@
   <h1 class="titulo">Lista de alumnos </h1>
 
   <div class="row">
-    <div class="col-4" *ngFor="let alumnos of lista">
+    <div class="col-4" *ngFor="let alumnos of dataSource.data">
       <div class="card">
         <div class="card-header">
           <span [ngClass]="alumnos.asistencia === true ? 'asistencia': 'Noasistencia'">{{alumnos.nombre | uppercase}}
@@ -20,8 +20,11 @@
           </label><br>
           <br>
           <div class="botones">
-            <a href="#" class="btn btn-info" (click)="editar(alumnos)">Editar</a>&nbsp;&nbsp;
-            <a href="#" class="btn btn-warning" (click)="eliminar(alumnos)">Eliminar</a>
+            <button mat-raised-button color="primary" (click)="editar(alumnos)">Editar</button>&nbsp;&nbsp;
+            <button mat-raised-button color="accent" (click)="eliminar(alumnos)">Eliminar</button>
+            <!--<a href="#" class="btn btn-info" (click)="editar(alumnos)">Editar</a>&nbsp;&nbsp;
+            <a href="#" class="btn btn-warning" (click)="eliminar(alumnos)">Eliminar</a>-->
+
           </div>
 
         </div>

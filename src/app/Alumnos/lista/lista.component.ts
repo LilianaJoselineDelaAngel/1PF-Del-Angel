@@ -1,5 +1,13 @@
-import { Component } from '@angular/core';
+import { Component, ViewChild, Inject } from '@angular/core';
 import { Alumnos } from '../../models/alumnos';
+import { MatTable, MatTableDataSource } from '@angular/material/table';
+import { AlumnoListaService } from '../../services/alumno-lista.service';
+import { FormularioComponent } from '../../Alumnos/formulario/formulario.component';
+import {
+  MatDialog,
+  MAT_DIALOG_DATA,
+  MatDialogRef,
+} from '@angular/material/dialog';
 
 @Component({
   selector: 'app-lista',
@@ -7,54 +15,38 @@ import { Alumnos } from '../../models/alumnos';
   styleUrls: ['./lista.component.css'],
 })
 export class ListaComponent {
-  //listaEstudiantes: Array<Estudiante> = [
-  lista: Alumnos[] = [
-    {
-      nombre: 'Julieta',
-      apellidos: 'Ponce de León',
-      curso: 'Angular JS',
-      tareas: 5,
-      esperadas: 10,
-      asistencia: true,
-    },
-    {
-      nombre: 'Martín Elías',
-      apellidos: 'de los Ríos Acosta',
-      curso: 'React JS',
-      tareas: 10,
-      esperadas: 10,
-      asistencia: true,
-    },
-    {
-      nombre: 'Matías ',
-      apellidos: 'de Greiff Rincón',
-      curso: 'Angular JS',
-      tareas: 9,
-      esperadas: 10,
-      asistencia: false,
-    },
-    {
-      nombre: 'Sebastián',
-      apellidos: 'del Campo Yepes',
-      curso: 'Java Inicial',
-      tareas: 8,
-      esperadas: 10,
-      asistencia: false,
-    },
-  ];
+  dataSource!: MatTableDataSource<Alumnos>;
+  constructor(
+    private AlumnoListaService: AlumnoListaService,
+    public dialog: MatDialog // public dialog: MatDialog
+  ) {}
+
+  ngOnInit(): void {
+    this.dataSource = new MatTableDataSource<Alumnos>();
+    this.AlumnoListaService.obtenerAlumnosObservable().subscribe(
+      (Alumnos: Alumnos[]) => {
+        this.dataSource.data = Alumnos;
+      }
+    );
+  }
+  @ViewChild(MatTable) tabla!: MatTable<Alumnos>;
 
   seleccionado = null;
   editar(alumn: any) {
+    console.log(alumn);
     this.seleccionado = alumn;
+    const dialogRef = this.dialog.open(FormularioComponent, {
+      data: alumn,
+    });
   }
 
   eliminar(alumn: any) {
-    var Aux = this.lista;
+    var Aux = this.dataSource.data;
     Aux.forEach(function (currentValue, index, arr) {
       if (Aux[index] == alumn) {
         Aux.splice(index, 1);
       }
     });
-    this.lista = Aux;
+    this.dataSource.data = Aux;
   }
 }

@@ -3,6 +3,7 @@ import { Alumnos } from '../../models/alumnos';
 import { MatTable, MatTableDataSource } from '@angular/material/table';
 import { AlumnoListaService } from '../../services/alumno-lista.service';
 import { FormularioComponent } from '../../Alumnos/formulario/formulario.component';
+import { ModalComponent } from '../modal/modal.component';
 import {
   MatDialog,
   MAT_DIALOG_DATA,
@@ -15,12 +16,15 @@ import {
   styleUrls: ['./tabla.component.css'],
 })
 export class TablaComponent {
+  //dataSource: MatTableDataSource<Alumnos> = new MatTableDataSource<Alumnos>(
+  // this.lista
+  //);
+
   dataSource!: MatTableDataSource<Alumnos>;
   //dialog: any;
   constructor(
     private AlumnoListaService: AlumnoListaService,
-    // private dialog: MatDialog
-    public dialog: MatDialog
+    private dialog: MatDialog // public dialog: MatDialog
   ) {}
 
   ngOnInit(): void {
@@ -45,21 +49,9 @@ export class TablaComponent {
   //   this.seleccionado = alumn;
   //}
 
-  editar(alumn: Alumnos): void {
-    this.dataSource.data.push({
-      nombre: 'Julieta',
-      apellidos: 'Ponce de León',
-      curso: 'Angular JS',
-      tareas: 5,
-      esperadas: 10,
-      asistencia: true,
-    });
-
-    //  this.dialog.open(FormularioComponent, {
-    //  data: alumn,
-    // });
-
+  editar(alumn: Alumnos) {
     console.log(alumn);
+
     const dialogRef = this.dialog.open(FormularioComponent, {
       data: alumn,
     });
@@ -80,8 +72,9 @@ export class TablaComponent {
   }
 
   nuevo(alumn: any) {
-    console.log(alumn);
-    this.seleccionado = alumn;
+    const dialogRef = this.dialog.open(FormularioComponent, {
+      data: alumn,
+    });
     this.tabla.renderRows();
   }
 }

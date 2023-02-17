@@ -57,13 +57,14 @@ export class FormularioComponent {
   Mensaje: string = '';
 
   //@Input() lista: any;
-  @Output() closeModal = new EventEmitter();
+  //@Output() closeModal = new EventEmitter();
 
-  onCloseModal(): void {
-    this.closeModal.emit();
-  }
+  // onCloseModal(): void {
+  //   this.closeModal.emit();
+  // }
 
-  enviar() {
+  enviar(alumn: any) {
+    console.log(alumn);
     console.log(this.dataSource.data);
     console.log(this.formulario);
     //this.dataSource.data.nombre = this.formulario.controls['nombre'].value;
@@ -71,6 +72,23 @@ export class FormularioComponent {
     // this.formulario.controls['apellidos'].value;
     // this.dataSource.data.curso = this.formulario.controls['curso'].value;
     //this.dataSource.data.tareas = this.formulario.controls['tareas'].value;
+    let Nombre = this.formulario.controls['nombre'].value;
+    let apellidos = this.formulario.controls['apellidos'].value;
+    let curso = this.formulario.controls['curso'].value;
+    let tareas = this.formulario.controls['tareas'].value;
+
+    var Aux = this.dataSource.data;
+    console.log(this.dataSource.data);
+    Aux.forEach(function (currentValue, index, arr) {
+      if (Aux[index] == alumn) {
+        Aux[index].nombre = Nombre;
+        Aux[index].apellidos = apellidos;
+        Aux[index].curso = curso;
+        Aux[index].tareas = tareas;
+      }
+    });
+    this.dataSource.data = Aux;
+    //  this.tabla.renderRows();
   }
 
   nuevo() {
@@ -83,5 +101,6 @@ export class FormularioComponent {
       asistencia: true,
     });
     console.log(this.dataSource.data);
+    // this.tabla.renderRows();
   }
 }

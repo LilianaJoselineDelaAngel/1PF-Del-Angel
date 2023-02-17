@@ -1,7 +1,9 @@
 .titulo {
   text-align: center;
 }
-
+.right {
+  text-align: right;
+}
 .boton {
   text-align: center;
 }
@@ -12,4 +14,9 @@
 .modal {
   display: block;
   background-color: rgba(0, 0, 0, 0.4);
+}
+
+h1,
+label {
+  color: black;
 }

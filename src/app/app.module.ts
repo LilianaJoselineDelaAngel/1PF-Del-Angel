@@ -16,6 +16,8 @@ import {
   MatDialogModule,
   MAT_DIALOG_DEFAULT_OPTIONS,
 } from '@angular/material/dialog';
+import { MatButtonModule } from '@angular/material/button';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -32,12 +34,16 @@ import {
     NgbModule,
     BrowserAnimationsModule,
     MatDialogModule,
+    MatButtonModule,
   ],
 
-  exports: [MatTableModule, MatIconModule, MatDialogModule],
+  exports: [MatTableModule, MatIconModule, MatDialogModule, MatButtonModule],
   providers: [
     AlumnoListaService,
-    { provide: MAT_DIALOG_DEFAULT_OPTIONS, useValue: { hasBackdrop: false } },
+    {
+      provide: MAT_DIALOG_DEFAULT_OPTIONS,
+      useValue: { hasBackdrop: false, panelClass: 'mat-dialog-override' },
+    },
   ],
   bootstrap: [AppComponent],
 })
