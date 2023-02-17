@@ -43,9 +43,21 @@ export class AlumnoListaService {
     },
   ];
   constructor() {}
+  //observable
   obtenerAlumnosObservable(): Observable<Alumnos[]> {
     return new Observable<Alumnos[]>((subscriptor) => {
       subscriptor.next(this.lista);
+    });
+  }
+
+  //promise
+  obtenerPromise(): Promise<Alumnos[]> {
+    return new Promise((resolve, reject) => {
+      if (this.lista.length > 0) {
+        resolve(this.lista);
+      } else {
+        reject([]);
+      }
     });
   }
 }

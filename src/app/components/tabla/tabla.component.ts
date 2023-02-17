@@ -86,7 +86,7 @@ export class TablaComponent {
     });
     this.tabla.renderRows();
 
-    //limpia los campor para el registro siguiente
+    //limpia los campos para el registro siguiente
     this.vacio = {
       nombre: '',
       apellidos: '',
