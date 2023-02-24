@@ -64,11 +64,11 @@ export class FormularioComponent {
   // }
 
   enviar(alumn: any) {
-    console.log('enviar', alumn);
+    this.AlumnoListaService.editar(alumn, this.formulario.controls);
+
+    //console.log('enviar', alumn);
     //console.log(this.dataSource.data);
     ///console.log(this.formulario);
-
-    this.AlumnoListaService.editar(alumn, this.formulario.controls);
 
     // //this.dataSource.data.nombre = this.formulario.controls['nombre'].value;
     // //this.dataSource.data.apellidos =

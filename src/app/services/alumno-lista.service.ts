@@ -57,39 +57,17 @@ export class AlumnoListaService {
     return this.Alumnos$.asObservable();
   }
   editar(alumn: any, form: any) {
-    //console.log(alumn);
-    console.log('form', form);
-
-    //this.dataSource.data.nombre = this.formulario.controls['nombre'].value;
-    //this.dataSource.data.apellidos =
-    // this.formulario.controls['apellidos'].value;
-    // this.dataSource.data.curso = this.formulario.controls['curso'].value;
-    //this.dataSource.data.tareas = this.formulario.controls['tareas'].value;
-    let Nombre = form['nombre'].value;
-    console.log('nombre', Nombre);
-
-    let apellidos = form['apellidos'].value;
-    let curso = form['curso'].value;
-    let tareas = form['tareas'].value;
-
     var Aux = this.lista;
-    console.log(this.lista);
     Aux.forEach(function (currentValue, index, arr) {
-      if (Aux[index] == form) {
-        Aux[index].nombre = Nombre;
-        Aux[index].apellidos = apellidos;
-        Aux[index].curso = curso;
-        Aux[index].tareas = tareas;
+      if (Aux[index] == alumn) {
+        Aux[index].nombre = form['nombre'].value;
+        Aux[index].apellidos = form['apellidos'].value;
+        Aux[index].curso = form['curso'].value;
+        Aux[index].tareas = form['tareas'].value;
       }
     });
     this.lista = Aux;
-    //  this.tabla.renderRows();
-    // form.reset({
-    //   nombre: '',
-    //   apellidos: '',
-    //   curso: '',
-    //   tareas: '',
-    // });
+    this.Alumnos$.next(this.lista);
   }
 
   eliminar(alumn: any) {
