@@ -8,6 +8,7 @@ import {
   MAT_DIALOG_DATA,
   MatDialogRef,
 } from '@angular/material/dialog';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-lista',
@@ -15,38 +16,36 @@ import {
   styleUrls: ['./lista.component.css'],
 })
 export class ListaComponent {
-  dataSource!: MatTableDataSource<Alumnos>;
+  Alumnos!: Alumnos;
+  Alumnos$!: Observable<Alumnos[]>;
+
+  //dataSource!: MatTableDataSource<Alumnos>;
   constructor(
     private AlumnoListaService: AlumnoListaService,
     public dialog: MatDialog // public dialog: MatDialog
   ) {}
 
   ngOnInit(): void {
-    this.dataSource = new MatTableDataSource<Alumnos>();
-    this.AlumnoListaService.obtenerAlumnosObservable().subscribe(
-      (Alumnos: Alumnos[]) => {
-        this.dataSource.data = Alumnos;
-      }
-    );
-  }
-  @ViewChild(MatTable) tabla!: MatTable<Alumnos>;
+    this.Alumnos$ = this.AlumnoListaService.obtenerAlumnosObservable();
 
-  seleccionado = null;
-  editar(alumn: any) {
-    console.log(alumn);
-    this.seleccionado = alumn;
+    //this.dataSource = new MatTableDataSource<Alumnos>();
+    //this.AlumnoListaService.obtenerAlumnosObservable().subscribe(
+    //  (Alumnos: Alumnos[]) => {
+    //    this.dataSource.data = Alumnos;
+    //  }
+    // );
+  }
+  //@ViewChild(MatTable) tabla!: MatTable<Alumnos>;
+
+  //seleccionado = null;
+  editarAlumno(alumn: any) {
+    console.log('lista comp', alumn);
     const dialogRef = this.dialog.open(FormularioComponent, {
       data: alumn,
     });
   }
 
-  eliminar(alumn: any) {
-    var Aux = this.dataSource.data;
-    Aux.forEach(function (currentValue, index, arr) {
-      if (Aux[index] == alumn) {
-        Aux.splice(index, 1);
-      }
-    });
-    this.dataSource.data = Aux;
+  eliminarAlumno(alumn: any) {
+    this.AlumnoListaService.eliminar(alumn);
   }
 }

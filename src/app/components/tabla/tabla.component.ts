@@ -9,6 +9,7 @@ import {
   MAT_DIALOG_DATA,
   MatDialogRef,
 } from '@angular/material/dialog';
+import { Observable, Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-tabla',
@@ -16,11 +17,8 @@ import {
   styleUrls: ['./tabla.component.css'],
 })
 export class TablaComponent {
-  //dataSource: MatTableDataSource<Alumnos> = new MatTableDataSource<Alumnos>(
-  // this.lista
-  //);
-
   dataSource!: MatTableDataSource<Alumnos>;
+  suscripcion!: Subscription;
   //dialog: any;
   constructor(
     private AlumnoListaService: AlumnoListaService,
@@ -29,22 +27,25 @@ export class TablaComponent {
 
   ngOnInit(): void {
     this.dataSource = new MatTableDataSource<Alumnos>();
-    this.AlumnoListaService.obtenerAlumnosObservable().subscribe(
-      (Alumnos: Alumnos[]) => {
-        this.dataSource.data = Alumnos;
-      }
-    );
+    this.suscripcion =
+      this.AlumnoListaService.obtenerAlumnosObservable().subscribe(
+        (alumn: Alumnos[]) => {
+          this.dataSource.data = alumn;
+        }
+      );
+
+    //this.AlumnoListaService.obtenerAlumnosObservable().subscribe(
+    //  (Alumnos: Alumnos[]) => {
+    //  this.dataSource.data = Alumnos;
+    // }
+    //);
   }
 
-  //dataSource: MatTableDataSource<Alumnos> = new MatTableDataSource<Alumnos>(
-  // this.lista
-  //);
-
-  @ViewChild(MatTable) tabla!: MatTable<Alumnos>;
+  //@ViewChild(MatTable) tabla!: MatTable<Alumnos>;
 
   columnas: string[] = ['Acciones', 'nombre', 'curso', 'tareas', 'asistencia'];
 
-  seleccionado = null;
+  // seleccionado = null;
   // editar(alumn: any) {
   //   this.seleccionado = alumn;
   //}
@@ -54,19 +55,12 @@ export class TablaComponent {
     const dialogRef = this.dialog.open(FormularioComponent, {
       data: alumn,
     });
-    this.tabla.renderRows();
+    //this.tabla.renderRows();
   }
 
   eliminar(alumn: any) {
-    var Aux = this.dataSource.data;
-    console.log(this.dataSource.data);
-    Aux.forEach(function (currentValue, index, arr) {
-      if (Aux[index] == alumn) {
-        Aux.splice(index, 1);
-      }
-    });
-    this.dataSource.data = Aux;
-    this.tabla.renderRows();
+    this.AlumnoListaService.eliminar(alumn);
+    //this.tabla.renderRows();
   }
 
   vacio = {
@@ -84,7 +78,7 @@ export class TablaComponent {
     const dialogRef = this.dialog.open(FormularioComponent, {
       data: alumn,
     });
-    this.tabla.renderRows();
+    // this.tabla.renderRows();
 
     //limpia los campos para el registro siguiente
     this.vacio = {
